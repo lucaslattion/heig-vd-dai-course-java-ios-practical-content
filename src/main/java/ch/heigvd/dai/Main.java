@@ -6,12 +6,18 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        // Measure the time to write a file (e.g : 1 byte, no buffer and binary file)
+        int[] sizes = {1, 1024, 1024*1024, 5*1024*1024}; // 1B, 1KiB, 1MiB, 5MiB
+        enum SIZES {}
+        enum Mode { NO, YES }
 
-        Measure.write("binary_1B.bin", 1, false, Measure.FileType.BINARY);
+        for(Measure.FileType filetype : Measure.FileType.values()) {
 
-        // Measure the time to read the same file
-
-        Measure.read("binary_1B.bin", false, Measure.FileType.BINARY);
+            for(int i = 0; i < 2; i++) {
+                for (int size : sizes) {
+                    Measure.write("file"+ (filetype == Measure.FileType.BINARY ? ".bin" : ".txt"), size, i == 1, filetype);
+                    Measure.read("file"+ (filetype == Measure.FileType.BINARY ? ".bin" : ".txt"), i == 1, filetype);
+                }
+            }
+        }
     }
 }

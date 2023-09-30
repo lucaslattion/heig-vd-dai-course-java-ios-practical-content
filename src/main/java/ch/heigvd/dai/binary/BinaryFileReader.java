@@ -9,7 +9,14 @@ public class BinaryFileReader implements Readable {
 
     @Override
     public void read(String filename) throws IOException {
-        // TODO : implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        // Read data from a file
+        FileInputStream fis = new FileInputStream(filename);
+        int b;
+        while ((b = fis.read()) != -1) {
+            // Do nothing
+        }
+
+        fis.close();
     }
 }
